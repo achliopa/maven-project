@@ -1,12 +1,12 @@
 pipeline {
-	agent any 
+	agent any
+	tools {
+		maven 'localMaven'
+	}
 	stages {
 		stage('Build'){
 			steps {
-				def mvn_version = 'localMaven'
-        		withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {
-        			sh 'mvn clean package'
-    			}
+        		sh 'mvn -B -DskipTests clean package'
         	}
 			post {
 				success {
